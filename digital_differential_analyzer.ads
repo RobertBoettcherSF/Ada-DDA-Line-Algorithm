@@ -15,11 +15,11 @@ package Digital_Differential_Analyzer is
       Y : Coordinate;
    end record;
 
-   -- Bounded vector type for rasterized pixels to ensure predictability and zero heap allocation
-   max_points : constant := 20_000;
+   -- Bounded array for rasterized pixels with sensible default capacity
+   Max_Points : constant := 20_001;
    type Point_Array is array (Positive range <>) of Point;
 
-   type Pixel_Buffer (Capacity : Positive := max_points) is record
+   type Pixel_Buffer (Capacity : Positive) is record
       Length : Natural := 0;
       Data   : Point_Array (1 .. Capacity);
    end record;
@@ -36,8 +36,8 @@ package Digital_Differential_Analyzer is
      (Start_Pt : Point;
       End_Pt   : Point) return Pixel_Buffer
    with
-      Pre  => (abs(Long_Float(End_Pt.X) - Long_Float(Start_Pt.X)) <= 10_000.0) and
-              (abs(Long_Float(End_Pt.Y) - Long_Float(Start_Pt.Y)) <= 10_000.0),
+      Pre  => (abs (Long_Float (End_Pt.X) - Long_Float (Start_Pt.X)) <= 10_000.0) and
+              (abs (Long_Float (End_Pt.Y) - Long_Float (Start_Pt.Y)) <= 10_000.0),
       Post => Compute_Line_Float_DDA'Result.Length > 0;
 
    -----------------------------------------------------------------------------
