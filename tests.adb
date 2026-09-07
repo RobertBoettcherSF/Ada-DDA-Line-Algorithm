@@ -168,9 +168,12 @@ begin
       P1 : constant Point := (X => -10, Y => 20);
       P2 : constant Point := (X => 30, Y => -40);
    begin
-      Check ("13.1 Max delta correctly calculated for mixed coordinates", Max_Delta (P1, P2) = 60);
-      Check ("13.2 Max delta is symmetric", Max_Delta (P1, P2) = Max_Delta (P2, P1));
-      Check ("13.3 Zero delta for identical points", Max_Delta (P1, P1) = 0);
+      Check ("13.1 Max delta correctly calculated for mixed coordinates",
+             Max_Delta (P1 => P1, P2 => P2) = 60);
+      Check ("13.2 Max delta is symmetric",
+             Max_Delta (P1 => P1, P2 => P2) = Max_Delta (P1 => P2, P2 => P1));
+      Check ("13.3 Zero delta for identical points",
+             Max_Delta (P1 => P1, P2 => P1) = 0);
    end;
 
    Put_Line ("");
